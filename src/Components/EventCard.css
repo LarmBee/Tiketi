@@ -1,0 +1,14 @@
+.logo-image{
+    height: 16em;
+    width: 100%;
+}
+
+.event-card-main{
+    background-color: green;
+    width: 20%;
+    height: 50%;
+    border-radius: 10px;
+    margin: 15px;
+    padding-left: auto;
+    padding-top: auto;
+}

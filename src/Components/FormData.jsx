@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -9,22 +9,26 @@ import Typography from "@mui/material/Typography";
 import Logo from "../Images/Pool Party Flyer.png";
 import Popover from "@mui/material/Popover";
 import { collection, addDoc } from "firebase/firestore";
-import {db} from '../firebase'
+import { db } from "../firebase";
 
 export default function ImgMediaCard() {
-
 	const [anchorEl, setAnchorEl] = useState(null);
-	const [newName, setNewName] =useState("")
-	const [newEmail, setNewEmail] =useState("")
-	const [newNumber, setNewNumber] =useState("")
+	const [newName, setNewName] = useState("");
+	const [newEmail, setNewEmail] = useState("");
+	const [newNumber, setNewNumber] = useState("");
 
+	const usersCollectionRef = collection(db, "users");
 
-
-	const usersCollectionRef =collection(db,"users")
-
-	const createUser=async()=>{
-		await addDoc(usersCollectionRef,{name:newName, email:newEmail, number:newNumber})
-	}	
+	const createUser = async () => {
+		await addDoc(usersCollectionRef, {
+			name: newName,
+			email: newEmail,
+			number: newNumber,
+		});
+		alert("Your data has been received successfully");
+		window.location.reload(true);
+		handleClose();
+	};
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -37,8 +41,6 @@ export default function ImgMediaCard() {
 	const open = Boolean(anchorEl);
 	const id = open ? "simple-popover" : undefined;
 
-
-	
 	return (
 		<Card sx={{ maxWidth: 345 }}>
 			<CardMedia component="img" alt="green iguana" height="260" image={Logo} />
@@ -47,8 +49,10 @@ export default function ImgMediaCard() {
 					Pool Party
 				</Typography>
 				<Typography variant="body2" color="text.secondary">
-					Lizards are a widespread group of squamate reptiles, with over 6,000
-					species, ranging across all continents except Antarctica
+					BIGBUDDY Rongai presents, The "Jump In Jump Out Pool Party" .It is the perfect way to kick off your
+					Friday. Join us on March 3rd, 2023, for a day filled with fun, music,
+					and swimming.With a entry price of only 300KSH. Grab your swimsuits
+					and get ready to jump in and jump out of the pool!
 				</Typography>
 			</CardContent>
 			<CardActions>
@@ -83,29 +87,36 @@ export default function ImgMediaCard() {
 					<Typography sx={{ p: 2 }}>
 						STEP 7 :Fill in the form below with all your correct details <br />
 					</Typography>
-					<Typography sx={{p:2}}>
+					<Typography sx={{ p: 2 }}>
 						**Please note these details will be used to send you tickets any
 						mistake made will be at your own inconvenience**
 						<br />
 						**Phone Number should be the same one used to pay via Mpesa**
 					</Typography>
-					<TextField id="outlined-basic" placeholder="Full Name" label="FullName" variant="outlined" onChange={(e)=>setNewName(e.target.value)} />
+					<TextField
+						id="outlined-basic"
+						placeholder="Full Name"
+						label="FullName"
+						variant="outlined"
+						onChange={(e) => setNewName(e.target.value)}
+					/>
 					<TextField
 						id="outlined-basic"
 						label="EmailAddress"
 						variant="outlined"
 						placeholder="Email for tickets"
-						onChange={(e)=>setNewEmail(e.target.value)}
+						onChange={(e) => setNewEmail(e.target.value)}
 					/>
 					<TextField
 						id="outlined-basic"
 						label="PhoneNumber"
 						variant="outlined"
 						placeholder="MPESA number"
-						onChange={(e)=>setNewNumber(e.target.value)}
-
+						onChange={(e) => setNewNumber(e.target.value)}
 					/>
-					<Button variant="contained" onClick={createUser}>SUBMIT DETAILS</Button>
+					<Button variant="contained" onClick={createUser} type="submit">
+						SUBMIT DETAILS
+					</Button>
 				</Popover>
 			</CardActions>
 		</Card>
